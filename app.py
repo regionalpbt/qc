@@ -741,6 +741,7 @@ def searchInspMC():
 @app.route('/api/getUserProfile',methods=['POST'])
 @check_logged
 def getUserProfile():            
+ 
     sessionData = establishSessionData()
     if (sessionData):
        return  jsonify(sessionData), 200 
@@ -788,7 +789,7 @@ def establishSessionData():
     query =  { "email": email}
 
     results = col.find_one(query)
-    #print('results', results["email"])
+    print('results', results["email"])
     # print('results', results["mf_list"])
     
     #this forces the mf_list to be generated from profile only, not API requests.   
@@ -796,7 +797,7 @@ def establishSessionData():
     session["userName"] = f"{results['first_name']} {results['last_name']}"
     session["mfList"] = results["mf_list"]   
         
-    sessionData["userProfile"] = {"email" : results["email"], "first_name" : results["first_name"], "ignore_submit": results["ignore_submit"],
+    sessionData["userProfile"] = {"email" : results["email"], "userName" : session['userName'], "ignore_submit": results["ignore_submit"],
     "environment":  os.environ["ENVIRONMENT"], 
     "databaseSchema":  "dev" if database[:3].lower() == "dev" else "prod"    
      }    
