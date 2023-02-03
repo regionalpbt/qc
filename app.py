@@ -789,9 +789,9 @@ def establishSessionData():
     query =  { "email": email}
 
     results = col.find_one(query)
-    print('results', results["email"])
-    # print('results', results["mf_list"])
     
+    #print('results', results["email"])
+        
     #this forces the mf_list to be generated from profile only, not API requests.   
     
     session["userName"] = f"{results['first_name']} {results['last_name']}"
@@ -838,21 +838,21 @@ def establishSessionData():
     for result in results:
         result["_id"] = str(result["_id"])
         party.append(result)
-
-       
+      
     partyTable = []     
     for pair in session['mfList']:
+        pair['MF_NAME'] = ""  
         for x in party:
             if x['_id'] == pair['SU']:
                 pair['SU_NAME'] = x['party_name']
             if x['_id'] == pair['MF']:
-                pair['MF_NAME'] = x['party_name']
-        partyTable.append(pair)             
+                pair['MF_NAME'] = x['party_name'] 
+        partyTable.append(pair)      
 
+   
+    partyTable = sorted(partyTable, key=lambda d: (d['SU_NAME'], d['MF_NAME']) )       
     sessionData["partyTable"] = partyTable     
-    #print(partyTable)        
-
-
+   
     col = db["qcAQL"]
     query = {}   
     aqlTable = []     
