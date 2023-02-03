@@ -850,7 +850,7 @@ def establishSessionData():
         partyTable.append(pair)      
 
    
-    partyTable = sorted(partyTable, key=lambda d: (d['SU_NAME'], d['MF_NAME']) )       
+    partyTable = sorted(partyTable, key=lambda d: (d['SU_NAME'], d['MF_NAME']) )        
     sessionData["partyTable"] = partyTable     
    
     col = db["qcAQL"]
