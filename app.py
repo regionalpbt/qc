@@ -797,7 +797,7 @@ def establishSessionData():
     session["userName"] = f"{results['first_name']} {results['last_name']}"
     session["mfList"] = results["mf_list"]   
         
-    sessionData["userProfile"] = {"email" : results["email"], "userName" : session['userName'], "ignore_submit": results["ignore_submit"],
+    sessionData["userProfile"] = {"email" : results["email"], "userName" : session['userName'], "ignore_submit": results["ignore_submit"], "active" : results["active"], 
     "environment":  os.environ["ENVIRONMENT"], 
     "databaseSchema":  "dev" if database[:3].lower() == "dev" else "prod"    
      }    
